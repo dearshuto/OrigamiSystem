@@ -14,6 +14,7 @@
 
 ImVec2 operator+(const ImVec2& v1, const ImVec2& v2);
 ImVec2 operator-(const ImVec2& v1, const ImVec2& v2);
+ImVec2 operator/(const ImVec2& v, const float div);
 
 class Window
 {
@@ -36,12 +37,13 @@ public:
     
     virtual ImVec2 getWindowPosition()const = 0;
 protected:
-    virtual void initializeWindow(const int flag = 0);
+    virtual void initializeWindow(const int flag = 0, const ImVec2& size = ImVec2{320, 240});
     
     virtual void setupContents() = 0;
     
     void endWindowSetup();
     
+    static ImU32 White;
 private:
     std::string m_caption;
 };

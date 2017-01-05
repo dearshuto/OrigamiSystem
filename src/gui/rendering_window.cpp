@@ -17,32 +17,38 @@ RenderingWindow::RenderingWindow(const std::string& caption)
     
 }
 
-void RenderingWindow::initializeWindow(const int flag)
+void RenderingWindow::initializeWindow(const int flag, const ImVec2& size)
 {
-    Super::initializeWindow(ImGuiWindowFlags_NoMove);
+    const int kWindowFlag = ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoResize;
+    const auto kWindowSize = ImGui::GetWindowSize();
+    Super::initializeWindow(kWindowFlag, kWindowSize);
 }
 
 void RenderingWindow::setupContents()
 {
     auto drawList = ImGui::GetWindowDrawList();
-
-    const auto kCurrentScreenPosition = getWindowPosition() + ImVec2{20.0, 20.0};
+    const auto kMoousePotision = ImGui::GetIO().MousePos;
+    const auto kOrigin = getWindowPosition() + ImVec2{20.0, 30.0};
     const auto kWindowSize = ImGui::GetWindowSize();
-    drawList->AddRect(kCurrentScreenPosition, kCurrentScreenPosition + ImVec2{50, 50}, ImColor{256, 256, 256});
     
     //        for(const auto line: sheet.getLines())
     //        {
     //            const auto& vertex1 = line->getVertex1();
     //            const auto& vertex2 = line->getVertex2();
     
-    const ImVec2 kBegin = {kCurrentScreenPosition.x, kCurrentScreenPosition.y};
-    const ImVec2 kEnd = kCurrentScreenPosition + ImVec2{100, 100};
+
+    // 四角形を描く
+    const float kLength = kWindowSize.x * 0.90;
+    const auto kLeftUp = kOrigin;
+    const auto kLeftDown = kLeftUp + ImVec2{0, kLength};
+    const auto kRightUp = kLeftUp + ImVec2{kLength, 0};
+    const auto kRightDown = kLeftUp + ImVec2{kLength, kLength};
     
-    drawList->AddLine(kBegin, kEnd, ImColor{256, 256, 256});
-    //        }
+    drawList->AddLine(kRightDown, kRightUp, White);
+    drawList->AddLine(kLeftDown, kRightDown, White);
+    drawList->AddLine(kRightUp, kLeftUp, White);
+    drawList->AddLine(kLeftDown, kLeftUp, White);
     
-    const auto kMoousePotision = getMoousePositionOnThisWindow();
-    std::cout << kMoousePotision.x << " " << kMoousePotision.y << std::endl;
 }
 
 ImVec2 RenderingWindow::getWindowPosition()const
