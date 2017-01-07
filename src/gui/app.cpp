@@ -48,7 +48,7 @@ void App::mainloop()
     {
         const ImVec4 clear_color = ImColor(256, 256, 256);
 
-        glfwPollEvents();
+        glfwWaitEvents();
         ImGui_ImplGlfw_NewFrame();
         
         // rendering
