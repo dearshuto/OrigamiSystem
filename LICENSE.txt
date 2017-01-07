@@ -1,0 +1,1 @@
+This files in this repository are licesed under the WTFPL license, except for files under "vendor".
