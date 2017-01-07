@@ -36,8 +36,10 @@ bool App::init()
     glfwMakeContextCurrent(g_window);
     
     ImGui_ImplGlfw_Init(g_window, true);
-    
-    m_windows.push_back(std::unique_ptr<RenderingWindow>(new RenderingWindow("Render Window")));
+
+    std::unique_ptr<RenderingWindow> renderingWindow(new RenderingWindow("Render Window"));
+    renderingWindow->init();
+    m_windows.push_back(std::move(renderingWindow));
     
     return true;
 }

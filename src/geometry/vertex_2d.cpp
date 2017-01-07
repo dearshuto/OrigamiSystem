@@ -6,6 +6,8 @@
 //
 //
 
+#include <imgui.h>
+#include "origami_system/gui/window.hpp"
 #include "origami_system/geometry/vertex_2d.hpp"
 
 Vertex2D::Vertex2D()
@@ -48,4 +50,11 @@ float& Vertex2D::y()
 float Vertex2D::y()const
 {
     return m_components[1];
+}
+
+void Vertex2D::stackDrawData(ImDrawList *const drawList, const ImVec2 &windowOrigin)
+{
+    const ImVec2& kCenter{x(), y()};
+    const float kRadius = 5;
+    drawList->AddCircle(kCenter, kRadius, Window::White);
 }

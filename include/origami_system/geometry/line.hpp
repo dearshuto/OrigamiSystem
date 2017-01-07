@@ -11,23 +11,28 @@
 
 #include <memory>
 #include <tuple>
+#include "origami_system/gui/shape.hpp"
 
 class Vertex2D;
 
 /// 折り紙にできた折り目
-class Line
+class Line : public Shape
 {
-    typedef std::weak_ptr<Vertex2D> VertexPtr;
 public:
     Line() = delete;
-    Line(std::weak_ptr<Vertex2D> vertex1, std::weak_ptr<Vertex2D> vertex2);
+    Line(Vertex2D*const vertex1, Vertex2D*const vertex2);
     virtual~Line() = default;
+    
+    /** @copydoc Super::render() */
+    void stackDrawData(ImDrawList*const drawList, const ImVec2& windowOrigin)override;
+
     
     const Vertex2D& getVertex1()const;
     const Vertex2D& getVertex2()const;
     
 private:
-    std::pair<VertexPtr, VertexPtr> m_vertex;
+    Vertex2D*const m_v1;
+    Vertex2D*const m_v2;
 };
 
 #endif /* line_hpp */

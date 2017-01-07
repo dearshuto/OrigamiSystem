@@ -19,7 +19,7 @@ std::weak_ptr<Vertex2D> Sheet::addVertex(const Vertex2D &position)
 
 void Sheet::addLine(const std::weak_ptr<Vertex2D> &vertex1, const std::weak_ptr<Vertex2D> &vertex2)
 {
-    m_lines.push_back(std::make_shared<Line>(vertex1, vertex2));
+//    m_lines.push_back(std::make_shared<Line>(vertex1, vertex2));
 }
 
 //---- Getters ---------------------------------------------------------------------------------------
