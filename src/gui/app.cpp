@@ -18,6 +18,11 @@ GLFWwindow* g_window;
 int App::DisplayWidth;
 int App::DisplayHeight;
 
+void window_size_callback(GLFWwindow* window, int width, int height)
+{
+    
+}
+
 bool App::init()
 {
     if (glfwInit() == GL_FALSE)
@@ -27,6 +32,8 @@ bool App::init()
     
     //    glfwWindowHint(GLFW_RESIZABLE, GL_FALSE);//サイズを固定にする
     g_window = glfwCreateWindow(640, 480, "Origami System", nullptr, nullptr);
+    
+    glfwSetWindowSizeCallback(g_window, window_size_callback);
     
     if (!g_window)
     {
