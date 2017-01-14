@@ -14,25 +14,15 @@
 Sheet::Sheet()
 {
     // 四角形を描く
-    
-    const auto kOrigin = ImVec2{20.0, 30.0};
-    const ImVec2 kWindowSize = {320, 320};
-    
-    const float kLength = kWindowSize.x * 0.90;
-    const auto kLeftUp = kOrigin;
-//    const auto kLeftDown = kLeftUp + ImVec2{0, kLength};
-//    const auto kRightUp = kLeftUp + ImVec2{kLength, 0};
-//    const auto kRightDown = kLeftUp + ImVec2{kLength, kLength};
-    
     // 頂点の順番
     // 1--4
     // |  |
     // 2--3
     
-    std::unique_ptr<Vertex2D> v1(new Vertex2D(20, 20));
-    std::unique_ptr<Vertex2D> v2(new Vertex2D(20, 120));
-    std::unique_ptr<Vertex2D> v3(new Vertex2D(120, 120));
-    std::unique_ptr<Vertex2D> v4(new Vertex2D(120, 20));
+    std::unique_ptr<Vertex2D> v1(new Vertex2D(0, 0));
+    std::unique_ptr<Vertex2D> v2(new Vertex2D(0, 1));
+    std::unique_ptr<Vertex2D> v3(new Vertex2D(1, 1));
+    std::unique_ptr<Vertex2D> v4(new Vertex2D(1, 0));
     
     m_lines.push_back(std::unique_ptr<Line>(new Line(v1.get(), v2.get())));
     m_lines.push_back(std::unique_ptr<Line>(new Line(v2.get(), v3.get())));
