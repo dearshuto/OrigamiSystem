@@ -19,9 +19,11 @@ public:
     RenderingWindow(const std::string& caption);
     ~RenderingWindow() = default;
 
+    void init()override;
+    
     ImVec2 getWindowPosition()const override;
 private:
-    void initializeWindow(const int flag = 0)override;
+    void initializeWindow(const int flag, const ImVec2& size)override;
     
     void setupContents()override;
 };

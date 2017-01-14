@@ -10,11 +10,12 @@
 #define window_hpp
 
 #include <string>
+#include <memory>
+#include <vector>
 #include <imgui.h>
+#include "shape.hpp"
 
-ImVec2 operator+(const ImVec2& v1, const ImVec2& v2);
-ImVec2 operator-(const ImVec2& v1, const ImVec2& v2);
-
+/// ウィンドウの中で描画されるウィンドウ
 class Window
 {
 public:
@@ -22,28 +23,30 @@ public:
     Window(const std::string& caption);
     virtual~Window() = default;
     
+    virtual void init() = 0;
+    
     /** 指定した位置にウィンドウを描画する. */
-    virtual void render()
-    {
-        initializeWindow();
-        setupContents();
-        endWindowSetup();
-    }
+    void render();
     
     ImVec2 getMoousePositionOnThisWindow()const;
     
     const std::string& getCaption()const;
     
     virtual ImVec2 getWindowPosition()const = 0;
+    
+    void addShape(std::unique_ptr<Shape> shape);
 protected:
-    virtual void initializeWindow(const int flag = 0);
+    virtual void initializeWindow(const int flag = 0, const ImVec2& size = ImVec2{320, 240});
     
     virtual void setupContents() = 0;
     
-    void endWindowSetup();
-    
 private:
     std::string m_caption;
+    
+    std::vector<std::unique_ptr<Shape>> m_shapes;
+    
+public:
+    static ImU32 White;
 };
 
 #endif /* window_hpp */

@@ -34,6 +34,8 @@ SET(Src_Folder ${CMAKE_SOURCE_DIR}/src/)
 FILE(GLOB_RECURSE origami_sources
 	${Include_Folder}/sheet.hpp
 	${Src_Folder}/sheet.cpp
+	${Include_Folder}/operators.hpp
+	${Src_Folder}/operators.cpp
 )
 
 FILE(GLOB_RECURSE gui_files
