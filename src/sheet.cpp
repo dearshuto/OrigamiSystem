@@ -13,10 +13,11 @@
 
 Sheet::Sheet()
 {
+    // 四角形を描く
+    
     const auto kOrigin = ImVec2{20.0, 30.0};
     const ImVec2 kWindowSize = {320, 320};
     
-    // 四角形を描く
     const float kLength = kWindowSize.x * 0.90;
     const auto kLeftUp = kOrigin;
 //    const auto kLeftDown = kLeftUp + ImVec2{0, kLength};
@@ -64,9 +65,9 @@ std::weak_ptr<Vertex2D> Sheet::addVertex(const Vertex2D &position)
     return std::weak_ptr<Vertex2D>(vertexPtr);
 }
 
-void Sheet::addLine(const std::weak_ptr<Vertex2D> &vertex1, const std::weak_ptr<Vertex2D> &vertex2)
+void Sheet::addLine(Vertex2D*const vertex1, Vertex2D*const vertex2)
 {
-//    m_lines.push_back(std::make_shared<Line>(vertex1, vertex2));
+    m_lines.push_back(std::unique_ptr<Line>(new Line{vertex1, vertex2}));
 }
 
 //---- Getters ---------------------------------------------------------------------------------------

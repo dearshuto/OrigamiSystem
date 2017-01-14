@@ -33,9 +33,10 @@ public:
      * @return 追加した頂点へのポインタ.  */
     std::weak_ptr<Vertex2D> addVertex(const Vertex2D& position);
     
-    /** @brief 折り目を作る.
-     * @param vertex1, vertex2 はこのクラスに要録済みの頂点であること. */
-    void addLine(const std::weak_ptr<Vertex2D>& vertex1, const std::weak_ptr<Vertex2D>& vertex2);
+    /** @brief 折り目を作る. 
+     * @param vertex1 折り紙上にある点.
+     * @param vertex2 折り紙上にある点. */
+    void addLine(Vertex2D*const vertex1, Vertex2D*const vertex2);
     
 
     const std::vector<std::shared_ptr<Line>>& getLines()const;
