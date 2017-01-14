@@ -21,7 +21,7 @@ class Vertex2D;
 class Sheet : public Shape
 {
 public:
-    Sheet() = default;
+    Sheet();
     virtual~Sheet() = default;
     
     /** @copydoc */
