@@ -10,6 +10,19 @@
 #include "origami_system/geometry/vertex_2d.hpp"
 #include "origami_system/sheet.hpp"
 
+void Sheet::stackDrawData(ImDrawList *const drawList, const ImVec2 &windowOrigin)
+{
+    for (const auto& line : m_lines)
+    {
+        line->stackDrawData(drawList, windowOrigin);
+    }
+    
+    for (const auto& vertex : m_vertices)
+    {
+        vertex->stackDrawData(drawList, windowOrigin);
+    }
+}
+
 std::weak_ptr<Vertex2D> Sheet::addVertex(const Vertex2D &position)
 {
     auto vertexPtr = std::make_shared<Vertex2D>(position[0], position[1]);
