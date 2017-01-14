@@ -14,6 +14,9 @@
 #include <vector>
 #include <imgui.h>
 #include "shape.hpp"
+#include "origami_system/geometry/matrix.hpp"
+
+class Vertex2D;
 
 /// ウィンドウの中で描画されるウィンドウ
 class Window
@@ -28,25 +31,32 @@ public:
     /** 指定した位置にウィンドウを描画する. */
     void render();
     
-    ImVec2 getMoousePositionOnThisWindow()const;
+    Vertex2D getMoousePositionOnThisWindow()const;
     
     const std::string& getCaption()const;
     
-    virtual ImVec2 getWindowPosition()const = 0;
-    
     void addShape(std::unique_ptr<Shape> shape);
 protected:
-    virtual void initializeWindow(const int flag = 0, const ImVec2& size = ImVec2{320, 240});
+    virtual void initializeWindow();
     
-    virtual void setupContents() = 0;
+    const Matrix2& getWindowTransformMatrix()const;
+    
+    void setWindowSettingFlag(const int flag);
+    
+    void setWindowSize(const ImVec2& size);
     
 private:
     std::string m_caption;
     
-    std::vector<std::unique_ptr<Shape>> m_shapes;
+    int m_flag;
     
+    ImVec2 m_size{100, 100};
+    
+    std::vector<std::unique_ptr<Shape>> m_shapes;
+protected:
+    Matrix2 m_transform;
 public:
-    static ImU32 White;
+    static unsigned int White;
 };
 
 #endif /* window_hpp */

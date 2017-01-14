@@ -10,28 +10,19 @@
 #define vertex_2d_hpp
 
 #include <array>
+#include "vector.hpp"
 #include "origami_system/gui/shape.hpp"
 
-class Vertex2D : public Shape
+class Vertex2D : public Shape/*インフェース*/, public Vector2
 {
+    typedef Vector2 Super;
 public:
     Vertex2D();
     Vertex2D(const float x, const float y);
     virtual~Vertex2D() = default;
 
-    float& operator[](const size_t index);
-    float operator[](const size_t index)const;
-
-    float& x();
-    float x()const;
-    float& y();
-    float y()const;
-
     /** @copydoc Super::render() */
-    void stackDrawData(ImDrawList*const drawList, const ImVec2& windowOrigin)override;
-    
-private:
-    std::array<float, 2> m_components;
+    void stackDrawData(ImDrawList*const drawList, const Matrix2& transform)override;
 };
 
 #endif /* vertex_2d_hpp */

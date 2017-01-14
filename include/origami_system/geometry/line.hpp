@@ -24,7 +24,7 @@ public:
     virtual~Line() = default;
     
     /** @copydoc Super::render() */
-    void stackDrawData(ImDrawList*const drawList, const ImVec2& windowOrigin)override;
+    void stackDrawData(ImDrawList*const drawList, const Matrix2& transform)override;
 
     
     const Vertex2D& getVertex1()const;

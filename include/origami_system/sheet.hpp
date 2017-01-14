@@ -25,7 +25,7 @@ public:
     virtual~Sheet() = default;
     
     /** @copydoc */
-    void stackDrawData(ImDrawList*const drawList, const ImVec2& windowOrigin)override;
+    void stackDrawData(ImDrawList*const drawList, const Matrix2& transform)override;
 
     
     /** @brief 折り紙のエッジ上に点をうつ

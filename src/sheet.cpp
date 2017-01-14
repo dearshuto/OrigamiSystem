@@ -35,16 +35,16 @@ Sheet::Sheet()
     m_vertices.push_back(std::move(v4));
 }
 
-void Sheet::stackDrawData(ImDrawList *const drawList, const ImVec2 &windowOrigin)
+void Sheet::stackDrawData(ImDrawList *const drawList, const Matrix2 &transform)
 {
     for (const auto& line : m_lines)
     {
-        line->stackDrawData(drawList, windowOrigin);
+        line->stackDrawData(drawList, transform);
     }
     
     for (const auto& vertex : m_vertices)
     {
-        vertex->stackDrawData(drawList, windowOrigin);
+        vertex->stackDrawData(drawList, transform);
     }
 }
 
