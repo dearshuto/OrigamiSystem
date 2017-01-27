@@ -22,6 +22,6 @@ int main(int argc, char** argv)
     
     app.mainloop();
     app.terminate();
-    
+
     return 0;
 }

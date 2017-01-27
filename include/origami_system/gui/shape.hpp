@@ -11,6 +11,7 @@
 
 struct ImVec2;
 struct ImDrawList;
+class Matrix2;
 
 class Shape
 {
@@ -20,8 +21,8 @@ public:
     
     /** 描画キューに情報をスタックする
      * @param drawList 有効な描画キュー.
-     * @param windowPosition 描画するウィンドウの原点. ここからの相対位置に描画する. */
-    virtual void stackDrawData(ImDrawList*const drawList, const ImVec2& windowOrigin) = 0;
+     * @param transform 描画するウィンドウ用に座標変換するための行列. */
+    virtual void stackDrawData(ImDrawList*const drawList, const Matrix2& transform) = 0;
 };
 
 #endif /* shape_h */

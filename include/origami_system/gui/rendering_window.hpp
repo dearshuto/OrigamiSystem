@@ -20,12 +20,6 @@ public:
     ~RenderingWindow() = default;
 
     void init()override;
-    
-    ImVec2 getWindowPosition()const override;
-private:
-    void initializeWindow(const int flag, const ImVec2& size)override;
-    
-    void setupContents()override;
 };
 
 #endif /* rendering_window_hpp */

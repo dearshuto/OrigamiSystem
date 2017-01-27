@@ -7,8 +7,9 @@
 //
 
 #include "origami_system/operators.hpp"
-#include "origami_system/geometry/vertex_2d.hpp"
 #include "origami_system/geometry/line.hpp"
+#include "origami_system/geometry/matrix.hpp"
+#include "origami_system/geometry/vertex_2d.hpp"
 #include "origami_system/gui/window.hpp"
 
 Line::Line(Vertex2D*const vertex1, Vertex2D*const vertex2)
@@ -18,12 +19,14 @@ Line::Line(Vertex2D*const vertex1, Vertex2D*const vertex2)
     
 }
 
-void Line::stackDrawData(ImDrawList *const drawList, const ImVec2& windowOrigin)
+void Line::stackDrawData(ImDrawList *const drawList, const Matrix2& transform)
 {
-    const ImVec2 kV1 = ImVec2{m_v1->x(), m_v1->y()} + windowOrigin;
-    const ImVec2 kV2 = ImVec2{m_v2->x(), m_v2->y()} + windowOrigin;
-    
-    drawList->AddLine(kV1, kV2, Window::White);
+    const Vector2 kV1 = transform * getVertex1();
+    const Vector2 kV2 = transform * getVertex2();
+
+    drawList->AddLine(ImVec2{kV1.x(), kV1.y()}
+                      , ImVec2{kV2.x(), kV2.y()}
+                      , Window::White);
 }
 
 const Vertex2D& Line::getVertex1()const

@@ -7,27 +7,27 @@
 //
 
 #include "origami_system/operators.hpp"
+#include "origami_system/geometry/vertex_2d.hpp"
 #include "origami_system/gui/app.hpp"
 #include "origami_system/gui/shape.hpp"
 #include "origami_system/gui/window.hpp"
 
-ImU32 Window::White = ImGui::ColorConvertFloat4ToU32(ImVec4{256, 256, 256, 256});
+unsigned int Window::White = ImGui::ColorConvertFloat4ToU32(ImVec4{256, 256, 256, 256});
 
 Window::Window(const std::string& caption)
 : m_caption(caption)
 {
-    
+    m_transform = Matrix2::Identity();
 }
 
 void Window::render()
 {
     initializeWindow();
-    setupContents();
     
     ImDrawList*const drawList = ImGui::GetWindowDrawList();
     for (auto& shape: m_shapes)
     {
-        shape->stackDrawData(drawList, getWindowPosition());
+        shape->stackDrawData(drawList, getWindowTransformMatrix());
     }
     
     ImGui::End();
@@ -38,20 +38,77 @@ void Window::addShape(std::unique_ptr<Shape> shape)
     m_shapes.push_back(std::move(shape));
 }
 
-void Window::initializeWindow(const int flag, const ImVec2& size)
+void Window::initializeWindow()
 {
     bool canOpen = false;
-    ImGui::SetNextWindowPos(getWindowPosition());
-    ImGui::SetNextWindowSize(size);
-    ImGui::Begin(getCaption().c_str(), &canOpen, flag);
+    
+    // ウィンドウの移動を許可しないときは, 指定された位置に描画する
+    if (getWindowSettingFlag() & ImGuiWindowFlags_NoMove)
+    {
+        ImGui::SetNextWindowPos(getWindowPosition());
+    }
+    
+    // ウィンドウのリサイズを許可しないときは, 指定されたサイズで描画する
+    if (getWindowSettingFlag() & ImGuiWindowFlags_NoResize)
+    {
+        ImGui::SetNextWindowSize(getWindowSize());
+    }
+    
+    ImGui::Begin(getCaption().c_str(), &canOpen, getWindowSettingFlag());
 }
 
-ImVec2 Window::getMoousePositionOnThisWindow()const
-{    
-    return ImGui::GetIO().MousePos - ImGui::GetCursorScreenPos();
+Vertex2D Window::getMoousePositionOnThisWindow()const
+{
+    const auto kRelatedMousePosition = ImGui::GetIO().MousePos - ImGui::GetCursorScreenPos();
+    return {kRelatedMousePosition.x, kRelatedMousePosition.y};
 }
 
 const std::string& Window::getCaption()const
 {
     return m_caption;
+}
+
+const Matrix2& Window::getWindowTransformMatrix()const
+{
+    return m_transform;
+}
+
+const ImVec2& Window::getWindowPosition()const
+{
+    return m_position;
+}
+
+void Window::setWindowPosition(const ImVec2 &position)
+{
+    m_position = position;
+}
+
+ImGuiWindowFlags Window::getWindowSettingFlag()const
+{
+    return m_flag;
+}
+
+void Window::setWindowSettingFlag(const int flag)
+{
+    m_flag = flag;
+}
+
+const ImVec2& Window::getWindowSize()const
+{
+    return m_size;
+}
+
+void Window::setWindowSize(const ImVec2 &size)
+{
+    m_size = size;
+}
+
+const Matrix2& Window::getTransformMatrix()const
+{
+    return m_transform;
+}
+
+void Window::applyTransformMatrix(const Matrix2 &transform)
+{
+    m_transform = transform * m_transform;
 }
