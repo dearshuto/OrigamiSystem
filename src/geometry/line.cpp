@@ -29,6 +29,12 @@ void Line::stackDrawData(ImDrawList *const drawList, const Matrix2& transform)
                       , Window::White);
 }
 
+
+bool Line::hasMouseOverlap(const ImVec2 &mousePosition)const
+{
+    return false;
+}
+
 const Vertex2D& Line::getVertex1()const
 {
     return *m_v1;
