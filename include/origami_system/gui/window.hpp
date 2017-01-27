@@ -41,19 +41,33 @@ protected:
     
     const Matrix2& getWindowTransformMatrix()const;
     
+    ImGuiWindowFlags getWindowSettingFlag()const;
+    
     void setWindowSettingFlag(const int flag);
+    
+    const ImVec2& getWindowSize()const;
     
     void setWindowSize(const ImVec2& size);
     
+    const ImVec2& getWindowPosition()const;
+    
+    void setWindowPosition(const ImVec2& position);
+    
+    const Matrix2& getTransformMatrix()const;
+    
+    void applyTransformMatrix(const Matrix2& transform);
 private:
     std::string m_caption;
     
-    int m_flag;
+    ImGuiWindowFlags m_flag;
     
     ImVec2 m_size{100, 100};
     
+    ImVec2 m_position{0, 0};
+    
     std::vector<std::unique_ptr<Shape>> m_shapes;
-protected:
+
+    // ウィンドウ内の座標変換
     Matrix2 m_transform;
 public:
     static unsigned int White;

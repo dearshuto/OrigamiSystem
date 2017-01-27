@@ -18,21 +18,21 @@ public:
     Matrix2() = default;
     ~Matrix2() = default;
     
-    typedef Eigen::Translation2f Base;
+    typedef Eigen::Transform<float, 2/*dimension*/, Eigen::TransformTraits::Affine> Base;
     
     // This constructor allows you to construct MyVectorType from Eigen expressions
-    template<typename OtherDerived>
-    Matrix2(const Eigen::MatrixBase<OtherDerived>& other)
+    Matrix2(const Base& other)
     : Base(other)
     {
         
     }
-//    // This method allows you to assign Eigen expressions to MyVectorType
-//    Matrix2 & operator= (const Eigen::Translation2f& other)
-//    {
-//        this->Base::operator=(other);
-//        return *this;
-//    }
+    
+    // This method allows you to assign Eigen expressions to MyVectorType
+    Matrix2& operator= (const Eigen::Translation<float, 2> & other)
+    {
+        Base::operator=(other);
+        return *this;
+    }
 };
 
 #endif /* matrix_hpp */

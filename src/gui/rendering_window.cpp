@@ -18,16 +18,19 @@
 RenderingWindow::RenderingWindow(const std::string& caption)
 : Super(caption)
 {
-    
+    Matrix2 affine;
+    affine.setIdentity();
+    affine.translate(Eigen::Vector2f{10.0, 10.0});
+    affine.scale(100.0f);
+    applyTransformMatrix(affine);
 }
 
 void RenderingWindow::init()
 {
     // 動かせない && 大きさ固定
-    const int kWindowFlag = ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoResize;
+    const ImGuiWindowFlags kWindowFlag = ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoTitleBar;
     setWindowSettingFlag(kWindowFlag);
     setWindowSize(ImVec2{300, 300});
-    m_transform
     
     addShape(std::unique_ptr<Shape>{new Sheet});
 }

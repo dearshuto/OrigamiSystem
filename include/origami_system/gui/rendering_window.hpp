@@ -19,7 +19,7 @@ public:
     RenderingWindow(const std::string& caption);
     ~RenderingWindow() = default;
 
-    void init()override;    
+    void init()override;
 };
 
 #endif /* rendering_window_hpp */

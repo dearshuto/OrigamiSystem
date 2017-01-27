@@ -8,8 +8,10 @@
 
 #include <imgui.h>
 #include "origami_system/geometry/line.hpp"
+#include "origami_system/geometry/matrix.hpp"
 #include "origami_system/geometry/vertex_2d.hpp"
 #include "origami_system/sheet.hpp"
+
 
 Sheet::Sheet()
 {
@@ -33,6 +35,8 @@ Sheet::Sheet()
     m_vertices.push_back(std::move(v2));
     m_vertices.push_back(std::move(v3));
     m_vertices.push_back(std::move(v4));
+    
+    
 }
 
 void Sheet::stackDrawData(ImDrawList *const drawList, const Matrix2 &transform)

@@ -17,7 +17,7 @@ unsigned int Window::White = ImGui::ColorConvertFloat4ToU32(ImVec4{256, 256, 256
 Window::Window(const std::string& caption)
 : m_caption(caption)
 {
-    
+    m_transform = Matrix2::Identity();
 }
 
 void Window::render()
@@ -41,10 +41,20 @@ void Window::addShape(std::unique_ptr<Shape> shape)
 void Window::initializeWindow()
 {
     bool canOpen = false;
-    const auto kPosition = getWindowTransformMatrix().translation();
-    ImGui::SetNextWindowPos(ImVec2{kPosition.x(), kPosition.y()});
-    ImGui::SetNextWindowSize(m_size);
-    ImGui::Begin(getCaption().c_str(), &canOpen, m_flag);
+    
+    // ウィンドウの移動を許可しないときは, 指定された位置に描画する
+    if (getWindowSettingFlag() & ImGuiWindowFlags_NoMove)
+    {
+        ImGui::SetNextWindowPos(getWindowPosition());
+    }
+    
+    // ウィンドウのリサイズを許可しないときは, 指定されたサイズで描画する
+    if (getWindowSettingFlag() & ImGuiWindowFlags_NoResize)
+    {
+        ImGui::SetNextWindowSize(getWindowSize());
+    }
+    
+    ImGui::Begin(getCaption().c_str(), &canOpen, getWindowSettingFlag());
 }
 
 Vertex2D Window::getMoousePositionOnThisWindow()const
@@ -63,12 +73,42 @@ const Matrix2& Window::getWindowTransformMatrix()const
     return m_transform;
 }
 
+const ImVec2& Window::getWindowPosition()const
+{
+    return m_position;
+}
+
+void Window::setWindowPosition(const ImVec2 &position)
+{
+    m_position = position;
+}
+
+ImGuiWindowFlags Window::getWindowSettingFlag()const
+{
+    return m_flag;
+}
+
 void Window::setWindowSettingFlag(const int flag)
 {
     m_flag = flag;
 }
 
+const ImVec2& Window::getWindowSize()const
+{
+    return m_size;
+}
+
 void Window::setWindowSize(const ImVec2 &size)
 {
     m_size = size;
+}
+
+const Matrix2& Window::getTransformMatrix()const
+{
+    return m_transform;
+}
+
+void Window::applyTransformMatrix(const Matrix2 &transform)
+{
+    m_transform = transform * m_transform;
 }
