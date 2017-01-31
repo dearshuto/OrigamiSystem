@@ -18,6 +18,7 @@ Window::Window(const std::string& caption)
 : m_caption(caption)
 {
     m_transform = Matrix2::Identity();
+    ImGui::GetIO().WantCaptureMouse = true;
 }
 
 void Window::render()
@@ -28,6 +29,7 @@ void Window::render()
     for (auto& shape: m_shapes)
     {
         shape->stackDrawData(drawList, getWindowTransformMatrix());
+        shape->detectMouseEvent();
     }
     
     ImGui::End();

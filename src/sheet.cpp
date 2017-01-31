@@ -44,12 +44,19 @@ void Sheet::stackDrawData(ImDrawList *const drawList, const Matrix2 &transform)
     for (const auto& line : m_lines)
     {
         line->stackDrawData(drawList, transform);
+        line->detectMouseEvent();
     }
     
     for (const auto& vertex : m_vertices)
     {
         vertex->stackDrawData(drawList, transform);
+        vertex->detectMouseEvent();
     }
+}
+
+bool Sheet::hasMouseOverlap(const ImVec2 &mousePosition)const
+{
+    return false;
 }
 
 std::weak_ptr<Vertex2D> Sheet::addVertex(const Vertex2D &position)

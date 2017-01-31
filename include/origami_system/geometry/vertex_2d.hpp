@@ -23,6 +23,16 @@ public:
 
     /** @copydoc Super::render() */
     void stackDrawData(ImDrawList*const drawList, const Matrix2& transform)override;
+    
+private:
+    /** @copydoc Super::render() */
+    bool hasMouseOverlap(const ImVec2& mousePosition)const override;
+    
+    /** @copydoc Super::onLeftButtonClick() */
+    void onLeftButtonClick()override;
+    
+    /** @copydoc Super::onRightButtonClick() */
+    void onRightButtonClick()override;
 };
 
 #endif /* vertex_2d_hpp */
