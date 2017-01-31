@@ -32,8 +32,13 @@ private:
      * マウスイベントが必要ないときは, つねにfalseを返すようにオーバーライドしてください. */
     virtual bool hasMouseOverlap(const ImVec2& mousePosition)const = 0;
 
+    /** マウスでポインティングされていると呼ばれるイベント. */
+    virtual void MouseOver();
+    
+    /** 左ボタンをクリックすると呼ばれるイベント. */
     virtual void onLeftButtonClick();
 
+    /** 右ボタンをクリックすると呼ばれるイベント. */
     virtual void onRightButtonClick();
 };
 

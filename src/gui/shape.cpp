@@ -16,6 +16,8 @@ void Shape::detectMouseEvent()
     
     if (hasMouseOverlap(kIO.MousePos))
     {
+        MouseOver();
+        
         if (kIO.MouseClicked[0])
         {
             onLeftButtonClick();
@@ -25,6 +27,11 @@ void Shape::detectMouseEvent()
             onRightButtonClick();
         }
     }
+}
+
+void Shape::MouseOver()
+{
+    
 }
 
 void Shape::onLeftButtonClick()
