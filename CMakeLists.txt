@@ -30,32 +30,33 @@ SET(IMGUI_SOURCES
 
 
 ## プロジェクトに含むソースコードのトラッキング
-SET(Include_Folder ${CMAKE_SOURCE_DIR}/include/origami_system/)
-SET(Src_Folder ${CMAKE_SOURCE_DIR}/src/)
+# includeフォルダとsrcフォルダにあるファイルのみを対象にする
+FILE(GLOB_RECURSE ALL_FILES
+	RELATIVE ${CMAKE_SOURCE_DIR}
+ 	include/*.hpp src/*.cpp)
+
+## ディレクトリ構成を保持したままビルドシステムを構築するマクロ
+foreach(FILE ${ALL_FILES})
+  get_filename_component(PARENT_DIR "${FILE}" PATH)
+  # skip src or include and changes /'s to \\'s
+  string(REGEX REPLACE "(\\./)?(src|include)/?" "" GROUP "${PARENT_DIR}")
+  string(REPLACE "/" "\\" GROUP "${GROUP}")
+
+  # group into "Source Files" and "Header Files"
+  if ("${FILE}" MATCHES ".*\\.cpp")
+    set(GROUP "Source Files\\${GROUP}")
+  elseif("${FILE}" MATCHES ".*\\.h")
+    set(GROUP "Header Files\\${GROUP}")
+  endif()
+
+  source_group("${GROUP}" FILES "${FILE}")
+endforeach()
 
 
-FILE(GLOB_RECURSE origami_sources
-	${Include_Folder}/sheet.hpp
-	${Src_Folder}/sheet.cpp
-	${Include_Folder}/operators.hpp
-	${Src_Folder}/operators.cpp
+add_library(particle_based_simulation STATIC
+	${ALL_FILES}
 )
 
-FILE(GLOB_RECURSE gui_files
-	${Include_Folder}gui/*.hpp
-	${Src_Folder}gui/*.cpp
-)
-
-FILE(GLOB_RECURSE geometry_files
-	${Include_Folder}/geometry/*.hpp
-	${Src_Folder}/geometry/*.cpp
-)
-
-
-## IDEの表示における階層の設定
-SOURCE_GROUP(gui\\ FILES src/main.cpp ${IMGUI_SOURCES} ${gui_files})
-SOURCE_GROUP(simulation FILES ${origami_sources})
-SOURCE_GROUP(geometry FILES ${geometry_files})
 
 # インクルードフォルダを相対パスの検索対象に設定する
 IF(WIN32)
@@ -68,9 +69,7 @@ ENDIF()
 add_definitions("-Wall -std=c++11")
 
 add_executable(origami src/main.cpp
-	${origami_sources}
-	${gui_files}
-	${geometry_files}
+	${ALL_FILES}
 	${IMGUI_SOURCES}
 )
 
