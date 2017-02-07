@@ -10,7 +10,7 @@
 #include "origami_system/geometry/line.hpp"
 #include "origami_system/geometry/matrix.hpp"
 #include "origami_system/geometry/vertex_2d.hpp"
-#include "origami_system/sheet.hpp"
+#include "origami_system/geometry/sheet.hpp"
 
 
 Sheet::Sheet()
@@ -71,9 +71,15 @@ void Sheet::addLine(Vertex2D*const vertex1, Vertex2D*const vertex2)
     m_lines.push_back(std::unique_ptr<Line>(new Line{vertex1, vertex2}));
 }
 
-//---- Getters ---------------------------------------------------------------------------------------
+//---- Getters -----------------------------------------------------------------
 
 const std::vector<std::shared_ptr<Line>>& Sheet::getLines()const
 {
     return m_lines;
+}
+//---- Setters -----------------------------------------------------------------
+
+void Sheet::setSolver(std::unique_ptr<Algorithm> algorithm)
+{
+    m_algorithm = std::move(algorithm);
 }

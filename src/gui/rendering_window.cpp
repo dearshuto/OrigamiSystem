@@ -9,7 +9,7 @@
 #include <iostream>
 #include <imgui.h>
 #include <imgui_impl_glfw.h>
-#include "origami_system/sheet.hpp"
+#include "origami_system/geometry/sheet.hpp"
 #include "origami_system/operators.hpp"
 #include "origami_system/geometry/line.hpp"
 #include "origami_system/geometry/vertex_2d.hpp"

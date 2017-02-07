@@ -9,6 +9,7 @@
 #ifndef sheet_hpp
 #define sheet_hpp
 
+#include "origami_system/algorithm/algorithm.hpp"
 #include "origami_system/gui/shape.hpp"
 #include <memory>
 #include <vector>
@@ -42,10 +43,12 @@ public:
     
 
     const std::vector<std::shared_ptr<Line>>& getLines()const;
-    
+
+    void setSolver(std::unique_ptr<Algorithm> algorithm);
 private:
     std::vector<std::shared_ptr<Line>> m_lines;
     std::vector<std::shared_ptr<Vertex2D>> m_vertices;
+    std::unique_ptr<Algorithm> m_algorithm;
 };
 
 #endif /* sheet_hpp */

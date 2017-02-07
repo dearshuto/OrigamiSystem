@@ -11,6 +11,7 @@
 
 #include <memory>
 #include <vector>
+#include "origami_system/algorithm/algorithm.hpp"
 #include "window.hpp"
 
 struct GLFWwindow;
@@ -38,6 +39,9 @@ private:
     static int DisplayWidth;
     
     static int DisplayHeight;
+    
+private:
+    std::unique_ptr<Algorithm> m_algorithm;
 };
 
 #endif /* app_hpp */
