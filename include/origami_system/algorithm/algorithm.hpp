@@ -9,7 +9,11 @@
 #ifndef algorithm_h
 #define algorithm_h
 
-class Sheet;
+#include <vector>
+#include "origami_system/gui/mouse_event.hpp"
+#include "origami_system/gui/shape.hpp"
+
+class Shape;
 
 class Algorithm
 {
@@ -18,7 +22,16 @@ protected:
 public:
     virtual~Algorithm() = default;
     
-    virtual void update() = 0;    
+    virtual void update() = 0;
+    
+protected:
+    void addShape(std::unique_ptr<Shape> shape);
+
+public:
+    const std::vector<std::unique_ptr<Shape>>& getRenderShapes()const;
+
+private:
+    std::vector<std::unique_ptr<Shape>> m_renderShapes;
 };
 
 #endif /* algorithm_h */

@@ -16,6 +16,7 @@
 #include "shape.hpp"
 #include "origami_system/geometry/matrix.hpp"
 
+class Shape;
 class Vertex2D;
 
 /// ウィンドウの中で描画されるウィンドウ
@@ -29,7 +30,7 @@ public:
     virtual void init() = 0;
     
     /** 指定した位置にウィンドウを描画する. */
-    void render();
+    void render(const Shape& shape);
     
     Vertex2D getMoousePositionOnThisWindow()const;
     

@@ -21,25 +21,6 @@ Window::Window(const std::string& caption)
     ImGui::GetIO().WantCaptureMouse = true;
 }
 
-void Window::render()
-{
-    initializeWindow();
-    
-    ImDrawList*const drawList = ImGui::GetWindowDrawList();
-    for (auto& shape: m_shapes)
-    {
-        shape->stackDrawData(drawList, getWindowTransformMatrix());
-        shape->detectMouseEvent();
-    }
-    
-    ImGui::End();
-}
-
-void Window::addShape(std::unique_ptr<Shape> shape)
-{
-    m_shapes.push_back(std::move(shape));
-}
-
 void Window::initializeWindow()
 {
     bool canOpen = false;
@@ -56,7 +37,27 @@ void Window::initializeWindow()
         ImGui::SetNextWindowSize(getWindowSize());
     }
     
-    ImGui::Begin(getCaption().c_str(), &canOpen, getWindowSettingFlag());
+    ImGui::Begin(getCaption().c_str(),  &canOpen, getWindowSettingFlag());
+}
+
+void Window::render(const Shape& shape)
+{
+    initializeWindow();
+    
+    ImDrawList*const drawList = ImGui::GetWindowDrawList();
+    
+    for (auto& shape: m_shapes)
+    {
+        shape->stackDrawData(drawList, getWindowTransformMatrix());
+        shape->detectMouseEvent();
+    }
+    
+    ImGui::End();
+}
+
+void Window::addShape(std::unique_ptr<Shape> shape)
+{
+    m_shapes.push_back(std::move(shape));
 }
 
 Vertex2D Window::getMoousePositionOnThisWindow()const

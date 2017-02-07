@@ -11,7 +11,6 @@
 #include <imgui.h>
 #include <imgui_impl_glfw.h>
 #include "origami_system/algorithm/straight_skelton.hpp"
-#include "origami_system/gui/rendering_window.hpp"
 #include "origami_system/gui/app.hpp"
 
 // 1つのウィンドウしか使わない予定なので、グローバル変数にしておく
@@ -51,10 +50,6 @@ bool App::init()
     
     ImGui_ImplGlfw_Init(g_window, true);
 
-    std::unique_ptr<RenderingWindow> renderingWindow(new RenderingWindow("Render Window"));
-    renderingWindow->init();
-    m_windows.push_back(std::move(renderingWindow));
-    
     m_algorithm.reset(new StraightSkelton);
     
     return true;
@@ -101,10 +96,7 @@ void App::mainloop()
         glClearColor(clear_color.x, clear_color.y, clear_color.z, clear_color.w);
         glClear(GL_COLOR_BUFFER_BIT);
 
-        for (auto& window : m_windows)
-        {
-            window->render();
-        }
+        renderRenderingWindow();
         
         // 毎秒呼び出す.
         if (kDuration > 1.0)
@@ -117,6 +109,25 @@ void App::mainloop()
         glfwSwapBuffers(g_window);
     }
 
+}
+
+void App::renderRenderingWindow()const
+{
+    bool canOpen = false;
+    ImGui::SetNextWindowPos({0, 0});
+    ImGui::SetNextWindowSize(ImVec2{300, 300});
+    ImGui::Begin("Rendering Window"
+                 , &canOpen
+                 , ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoTitleBar);
+    ImDrawList*const drawList = ImGui::GetWindowDrawList();
+    
+    for (const auto& shape : m_algorithm->getRenderShapes())
+    {
+        shape->stackDrawData(drawList, Matrix2::Identity());
+        shape->detectMouseEvent();
+    }
+    
+    ImGui::End();
 }
 
 void App::fetchDisplaySize()const

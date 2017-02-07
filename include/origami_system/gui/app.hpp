@@ -31,11 +31,13 @@ public:
     static unsigned int GetDisplayWidth();
     
     static unsigned int GetDisplayHeight();
-private:
-    void fetchDisplaySize()const;
-private:
-    std::vector<std::unique_ptr<Window>> m_windows;
     
+private:
+    void renderRenderingWindow()const;
+    
+    void fetchDisplaySize()const;
+    
+private:
     static int DisplayWidth;
     
     static int DisplayHeight;

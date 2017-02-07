@@ -53,10 +53,6 @@ foreach(FILE ${ALL_FILES})
 endforeach()
 
 
-add_library(particle_based_simulation STATIC
-	${ALL_FILES}
-)
-
 
 # インクルードフォルダを相対パスの検索対象に設定する
 IF(WIN32)
