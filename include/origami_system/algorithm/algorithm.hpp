@@ -13,9 +13,7 @@
 #include "origami_system/gui/mouse_event.hpp"
 #include "origami_system/gui/shape.hpp"
 
-class Shape;
-
-class Algorithm
+class Algorithm : public MouseEvent
 {
 protected:
     Algorithm() = default;
@@ -23,6 +21,8 @@ public:
     virtual~Algorithm() = default;
     
     virtual void update() = 0;
+    
+    Event detectMouseEvent(const Eigen::Vector2f& mousePosition)override;
     
 protected:
     void addShape(std::unique_ptr<Shape> shape);

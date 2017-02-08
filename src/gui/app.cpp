@@ -7,6 +7,7 @@
 //
 
 #include <iostream>
+#include <Eigen/Core>
 #include <GLFW/glfw3.h>
 #include <imgui.h>
 #include <imgui_impl_glfw.h>
@@ -120,11 +121,12 @@ void App::renderRenderingWindow()const
                  , &canOpen
                  , ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoTitleBar);
     ImDrawList*const drawList = ImGui::GetWindowDrawList();
+    const ImVec2& kMousePosition = ImGui::GetIO().MousePos;
     
     for (const auto& shape : m_algorithm->getRenderShapes())
     {
         shape->stackDrawData(drawList, Matrix2::Identity());
-        shape->detectMouseEvent();
+        shape->detectMouseEvent(Eigen::Vector2f{kMousePosition.x, kMousePosition.y});
     }
     
     ImGui::End();

@@ -7,6 +7,7 @@
 //
 
 #include <iostream>
+#include <Eigen/Core>
 #include <imgui.h>
 #include "origami_system/gui/window.hpp"
 #include "origami_system/geometry/matrix.hpp"
@@ -32,7 +33,7 @@ void Vertex2D::stackDrawData(ImDrawList *const drawList, const Matrix2& transfor
     drawList->AddCircle(kCenter, kRadius, Window::White);
 }
 
-bool Vertex2D::hasMouseOverlap(const ImVec2 &mousePosition)const
+bool Vertex2D::hasMouseOverlap(const Eigen::Vector2f &mousePosition)const
 {
     return true;
 }

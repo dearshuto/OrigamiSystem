@@ -29,7 +29,7 @@ public:
     void stackDrawData(ImDrawList*const drawList, const Matrix2& transform)override;
 
     /** @copydoc */
-    bool hasMouseOverlap(const ImVec2& mousePosition)const override;
+    bool hasMouseOverlap(const Eigen::Vector2f& mousePosition)const override;
     
     /** @brief 折り紙のエッジ上に点をうつ
      * @param position 要素が0.0~1.0におさまってる二次元の位置.

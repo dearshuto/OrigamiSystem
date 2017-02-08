@@ -27,7 +27,7 @@ public:
     void stackDrawData(ImDrawList*const drawList, const Matrix2& transform)override;
 
     /** @copydoc Super::render() */
-    bool hasMouseOverlap(const ImVec2& mousePosition)const override;
+    bool hasMouseOverlap(const Eigen::Vector2f& mousePosition)const override;
     
     const Vertex2D& getVertex1()const;
     const Vertex2D& getVertex2()const;

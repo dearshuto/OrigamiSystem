@@ -26,7 +26,7 @@ public:
     
 private:
     /** @copydoc Super::render() */
-    bool hasMouseOverlap(const ImVec2& mousePosition)const override;
+    bool hasMouseOverlap(const Eigen::Vector2f& mousePosition)const override;
     
     /** @copydoc Super::onLeftButtonClick() */
     void onLeftButtonClick()override;

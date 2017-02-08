@@ -7,6 +7,7 @@
 //
 
 #include <imgui.h>
+#include <Eigen/Core>
 #include "origami_system/geometry/line.hpp"
 #include "origami_system/geometry/matrix.hpp"
 #include "origami_system/geometry/vertex_2d.hpp"
@@ -44,17 +45,17 @@ void Sheet::stackDrawData(ImDrawList *const drawList, const Matrix2 &transform)
     for (const auto& line : m_lines)
     {
         line->stackDrawData(drawList, transform);
-        line->detectMouseEvent();
+//        line->detectMouseEvent();
     }
     
     for (const auto& vertex : m_vertices)
     {
         vertex->stackDrawData(drawList, transform);
-        vertex->detectMouseEvent();
+//        vertex->detectMouseEvent();
     }
 }
 
-bool Sheet::hasMouseOverlap(const ImVec2 &mousePosition)const
+bool Sheet::hasMouseOverlap(const Eigen::Vector2f &mousePosition)const
 {
     return false;
 }

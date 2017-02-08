@@ -49,7 +49,6 @@ void Window::render(const Shape& shape)
     for (auto& shape: m_shapes)
     {
         shape->stackDrawData(drawList, getWindowTransformMatrix());
-        shape->detectMouseEvent();
     }
     
     ImGui::End();

@@ -6,6 +6,7 @@
 //
 //
 
+#include <Eigen/Core>
 #include "origami_system/operators.hpp"
 #include "origami_system/geometry/line.hpp"
 #include "origami_system/geometry/matrix.hpp"
@@ -30,7 +31,7 @@ void Line::stackDrawData(ImDrawList *const drawList, const Matrix2& transform)
 }
 
 
-bool Line::hasMouseOverlap(const ImVec2 &mousePosition)const
+bool Line::hasMouseOverlap(const Eigen::Vector2f &mousePosition)const
 {
     return false;
 }
