@@ -35,7 +35,10 @@ void Vertex2D::stackDrawData(ImDrawList *const drawList, const Matrix2& transfor
 
 bool Vertex2D::hasMouseOverlap(const Eigen::Vector2f &mousePosition)const
 {
-    return true;
+    const float kSquaredDiffX  = std::pow<float>(this->x() - mousePosition.x(), 2);
+    const float kSquaredDiffY  = std::pow<float>(this->y() - mousePosition.y(), 2);
+
+    return (kSquaredDiffX + kSquaredDiffY) < 25.0f;
 }
 
 void Vertex2D::onLeftButtonClick()
