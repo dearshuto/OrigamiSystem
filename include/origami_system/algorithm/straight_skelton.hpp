@@ -13,6 +13,7 @@
 
 class StraightSkelton : public Algorithm
 {
+    typedef Algorithm Super;
 public:
     StraightSkelton() = default;
     ~StraightSkelton() = default;
@@ -24,6 +25,8 @@ private:
      * マウスイベントが必要ないときは, つねにfalseを返すようにオーバーライドしてください. */
     bool hasMouseOverlap(const Eigen::Vector2f& mousePosition)const override;
 
+    /** @copydoc Super::onLeftButtonClick() */
+    void onLeftButtonClick()override;
 };
 
 #endif /* straight_skelton_hpp */

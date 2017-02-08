@@ -30,5 +30,10 @@ bool StraightSkelton::hasMouseOverlap(const Eigen::Vector2f &mousePosition)const
     const bool kIsWithinRangeX = (0 <= mousePosition.x()) && (mousePosition.x() <= 1.0);
     const bool kIsWithinRangeY = (0 <= mousePosition.y()) && (mousePosition.y() <= 1.0);
     
-    return (kIsWithinRangeX && kIsWithinRangeY) ? true : false;
+    return true;//(kIsWithinRangeX && kIsWithinRangeY) ? true : false;
+}
+
+void StraightSkelton::onLeftButtonClick()
+{
+    std::cout << "CLick" << std::endl;
 }

@@ -126,9 +126,12 @@ void App::renderRenderingWindow()const
     for (const auto& shape : m_algorithm->getRenderShapes())
     {
         shape->stackDrawData(drawList, Matrix2::Identity());
-        shape->detectMouseEvent(Eigen::Vector2f{kMousePosition.x, kMousePosition.y});
     }
     
+    // マウスイベントは Algorithm のインスタンス経由で発生させる.
+    // Algorithm に適切なタイミングでイベントを発生させるため.
+    m_algorithm->detectMouseEvent(Eigen::Vector2f{kMousePosition.x, kMousePosition.y});
+
     ImGui::End();
 }
 
